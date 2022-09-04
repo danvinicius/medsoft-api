@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
     "dev:server": "ts-node-dev --inspect --ignore-watch node_modules src/server/app.ts"
   },
   "repository": {
