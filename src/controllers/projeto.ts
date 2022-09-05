@@ -37,10 +37,10 @@ export default class ProjetoController {
     async read(req: Request, res: Response) {
         try {
             //Tento recuperar os projetos
-            const projeto: Array<projeto> = await db('projeto').select();
+            const projetos: Array<projeto> = await db('projeto').select();
 
             //Se der certo, retorna os projetos
-            return res.status(200).json(projeto);
+            return res.render('index', {projetos: projetos});
         } catch(e) {
 
             //Se der errado ele printa o erro e retorna null
@@ -59,7 +59,7 @@ export default class ProjetoController {
             const projeto: Array<projeto> = await db('projeto').select().where('id', id);
 
             //Se der certo, retorna os projetos
-            return res.status(200).json(projeto);
+            return res.render('projeto/index', {projeto: projeto[0]});
         } catch(e) {
 
             //Se der errado ele printa o erro e retorna null

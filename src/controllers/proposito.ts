@@ -3,7 +3,7 @@ import {Request, Response} from 'express';
 
 export interface proposito {
     nome: string,
-    descricao: string,
+    descricao?: string,
     id_projeto: number,
 }
 export default class PropositoController {

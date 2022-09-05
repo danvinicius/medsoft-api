@@ -1,0 +1,10 @@
+<%-include('./partials/header')-%>
+<body>
+    <h1>Projetos</h1>
+    <ul>
+        <%projetos.forEach(projeto => {%>
+            <li><%=projeto.nome%></li>
+        <%})%>
+    </ul>
+</body>
+</html>
