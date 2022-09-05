@@ -3,6 +3,7 @@ os métodos necessários pra fazer o crud
 */
 import db from '../database/connection';
 import {Request, Response} from 'express';
+import {proposito} from './proposito';
 
 interface projeto {
     nome: string,
@@ -23,14 +24,13 @@ export default class ProjetoController {
             const projetoCriado: number = await db('projeto').insert(projeto);
 
             //Se der certo ele retorna 1
-            return res.json(projetoCriado);
+            return res.status(200).json(projetoCriado);
 
         } catch(e) {
 
             //Se der errado ele printa o erro e retorna null
-            console.log(e);
+            return res.status(500).json({err: e});
         }
-        return null;
     }
 
     //Método de recuperar todos os projetos
@@ -40,13 +40,12 @@ export default class ProjetoController {
             const projeto: Array<projeto> = await db('projeto').select();
 
             //Se der certo, retorna os projetos
-            return res.json(projeto);
+            return res.status(200).json(projeto);
         } catch(e) {
 
             //Se der errado ele printa o erro e retorna null
-            console.log(e);
+            return res.status(500).json({err: e});
         }
-        return null;
     }
 
     //Método de recuperar um projeto específico
@@ -60,13 +59,31 @@ export default class ProjetoController {
             const projeto: Array<projeto> = await db('projeto').select().where('id', id);
 
             //Se der certo, retorna os projetos
-            return res.json(projeto);
+            return res.status(200).json(projeto);
         } catch(e) {
 
             //Se der errado ele printa o erro e retorna null
-            console.log(e);
+            return res.status(500).json({err: e});
         }
-        return null;
+    }
+
+    //Método de pegar o(s) propósito(s) relacionados ao projeto
+    async getProposito(req: Request, res: Response){
+        const {id} = req.params;
+
+        try {
+            //Busco o id, nome  descrição do proposito cujo campo id_projeto é igual ao id do projeto enviado como parametro na url
+            //Ainda estou vendo se é a forma mais fácil de fazer isso
+            //Mas o padrão é esse, vamos no controller do pai e buscamos o filho relacionado
+            const proposito: Array<proposito> = await db.select(
+                ['proposito.id as id_proposito',
+                    'proposito.nome as nome_proposito',
+                    'proposito.descricao as descricao_proposito'
+                ]).table('proposito').where('id_projeto', id);
+            return res.status(200).json(proposito);
+        } catch(e: any) {
+            return res.status(500).json({err: e});
+        }
     }
 
     //Método pra atualizar um projeto
@@ -88,7 +105,7 @@ export default class ProjetoController {
                 const projetoAtualizado: number = await db('projeto').update(update).where('id', id);
 
                 //Se atualizar, retorna 1
-                return res.json(projetoAtualizado);
+                return res.status(200).json(projetoAtualizado);
             }
 
             //Se não existir o projeto, lança um 404
@@ -96,9 +113,8 @@ export default class ProjetoController {
         } catch(e) {
 
             //Se der algum outro erro, printa e retorna null
-            console.log(e);
+            return res.status(500).json({err: e});
         }
-        return null;
     }
 
     //Método de deletar projeto, preguiça de comentar, é bem intuitivo
@@ -106,10 +122,9 @@ export default class ProjetoController {
         const {id} = req.params;
         try {
             const projeto: number = await db('projeto').delete().where('id', id);
-            return res.json(projeto);
+            return res.status(200).json(projeto);
         } catch(e) {
-            console.log(e);
+            return res.status(500).json({err: e});
         }
-        return null;
     }
 }
