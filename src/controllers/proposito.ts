@@ -6,6 +6,7 @@ export interface proposito {
     descricao?: string,
     id_projeto: number,
 }
+
 export default class PropositoController {
     async create(req: Request, res: Response) {
         const proposito: proposito = req.body;
