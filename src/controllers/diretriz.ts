@@ -14,9 +14,7 @@ export default class DiretrizController {
 
         const diretriz: diretriz = req.body;
         try {
-            const diretrizCriada: number = await db('Diretriz').insert(diretriz); 
-            // db('Diretriz') tá com letra maiúscula porque é assim que tá no sql.
-    
+            const diretrizCriada: number = await db('diretriz').insert(diretriz); 
             return res.status(200).json(diretrizCriada);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -26,7 +24,7 @@ export default class DiretrizController {
     async read(req: Request, res: Response) {
 
         try {
-            const diretriz: Array<diretriz> = await db('Diretriz').select();
+            const diretriz: Array<diretriz> = await db('diretriz').select();
             return res.status(200).json(diretriz);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -37,7 +35,7 @@ export default class DiretrizController {
 
         const {id} = req.params;
         try {
-            const diretriz: Array<diretriz> = await db('Diretriz').select().where('id', id);
+            const diretriz: Array<diretriz> = await db('diretriz').select().where('id', id);
             return res.status(200).json(diretriz);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -50,9 +48,9 @@ export default class DiretrizController {
         const update: diretriz = req.body;
 
         try {
-            const diretrizExiste: Array<diretriz> = await db('Diretriz').select().where('id', id);
+            const diretrizExiste: Array<diretriz> = await db('diretriz').select().where('id', id);
             if(diretrizExiste){
-                const diretrizAtualizada: number = await db('Diretriz').update(update).where('id', id);
+                const diretrizAtualizada: number = await db('diretriz').update(update).where('id', id);
                 return res.status(200).json(diretrizAtualizada);
             }
             return res.status(404).json({err: 'diretriz não encontrada'});
@@ -65,7 +63,7 @@ export default class DiretrizController {
 
         const {id} = req.params;
         try {
-            const diretriz: number = await db('Diretriz').delete().where('id', id);
+            const diretriz: number = await db('diretriz').delete().where('id', id);
             return res.status(200).json(diretriz);
         } catch(e) {
             return res.status(500).json({err: e});
