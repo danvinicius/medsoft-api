@@ -1,11 +1,10 @@
-import {Router, Request, Response, request} from 'express';
+import {Router} from 'express';
 const router = Router();
-import ProjetoController from '../controllers/projeto';
-const controller: ProjetoController = new ProjetoController();
+import ResultadoController from '../controllers/resultado';
+const controller: ResultadoController = new ResultadoController();
 router
     .get('/', controller.read)
     .get('/:id', controller.readById)
-    .get('/:id/proposito', controller.getProposito)
     .post('/', controller.create)
     .put('/:id', controller.update)
     .delete('/:id', controller.delete);

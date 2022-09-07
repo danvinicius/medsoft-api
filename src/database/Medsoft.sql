@@ -17,7 +17,7 @@ CREATE TABLE `Proposito` (
 );
 
 CREATE TABLE `Diretriz` (
-	`id` int NOT NULL,
+	`id` int NOT NULL AUTO_INCREMENT,
 	`codigo` varchar(255) NOT NULL UNIQUE,
 	`nome` varchar(255) NOT NULL,
 	`descricao` TEXT,
@@ -37,9 +37,9 @@ CREATE TABLE `Indicador` (
 	`id` int NOT NULL AUTO_INCREMENT,
 	`nome` varchar(255) NOT NULL,
 	`tipo` varchar(255),
-	`demonstra` varchar(255),
-	`como_calcular` varchar(255),
-	`como_analisar` varchar(255),
+	`demonstra` varchar(255) NOT NULL,
+	`como_calcular` varchar(255) NOT NULL,
+	`como_analisar` varchar(255) NOT NULL,
 	`termo_lexico` varchar(255),
 	`nocao_lexico` varchar(255),
 	`impacto_lexico` varchar(255),
@@ -56,6 +56,7 @@ CREATE TABLE `Resultado` (
 	`id` int NOT NULL AUTO_INCREMENT,
 	`nome` varchar(255) NOT NULL,
 	`descricao` varchar(255) NOT NULL,
+	`valor` varchar(255) NOT NULL,
 	`id_indicador` int NOT NULL,
 	PRIMARY KEY (`id`)
 );
