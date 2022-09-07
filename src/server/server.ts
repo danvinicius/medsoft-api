@@ -5,6 +5,7 @@ import propositoRouter from '../routes/proposito';
 import diretrizRouter from '../routes/diretriz';
 import objetivoRouter from '../routes/objetivo';
 import indicadorRouter from '../routes/indicador';
+import resultadoRouter from '../routes/resultado';
 
 export default class Server {
     port: number;
@@ -19,17 +20,14 @@ export default class Server {
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: true}));
-        this.app.use(express.static('public'));
-        this.app.set('views', 'src/views');
-        this.app.set('view engine', 'ejs');
-        this.app.use('/', projetoRouter);
+
+        //routes
+        this.app.use('/projeto', projetoRouter);
         this.app.use('/proposito', propositoRouter);
         this.app.use('/diretriz', diretrizRouter);
         this.app.use('/objetivo', objetivoRouter);
         this.app.use('/indicador', indicadorRouter);
-        this.app.get('/*', (req: Request, res: Response)=> {
-            res.send('<h1>404</h1>');
-        });
+        this.app.use('/resultado', resultadoRouter);
     }
 
     run() {

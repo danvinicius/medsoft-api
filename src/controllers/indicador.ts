@@ -4,9 +4,9 @@ import {Request, Response} from 'express';
 export interface indicador {
     nome: string,
 	tipo?: string,
-	demonstra?: string,
-	como_calcular?: string,
-	como_analisar?: string,
+	demonstra: string,
+	como_calcular: string,
+	como_analisar: string,
 	termo_lexico?: string,
 	nocao_lexico?: string,
 	impacto_lexico?: string,
