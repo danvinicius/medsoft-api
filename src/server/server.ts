@@ -28,6 +28,9 @@ export default class Server {
         this.app.use('/objetivo', objetivoRouter);
         this.app.use('/indicador', indicadorRouter);
         this.app.use('/resultado', resultadoRouter);
+        this.app.use('/*', (req: Request, res: Response) => {
+            res.status(404).json({err: 'Not found'});
+        });
     }
 
     run() {
