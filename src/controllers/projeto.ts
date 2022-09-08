@@ -10,7 +10,8 @@ export default class ProjetoController {
     async create(req: Request, res: Response) {
         const projeto: projeto = req.body;
 
-        try {            const projetoCriado: number = await db('projeto').insert(projeto);
+        try {
+            const projetoCriado: number = await db('projeto').insert(projeto);
             return res.status(200).json(projetoCriado);
 
         } catch(e) {
@@ -29,27 +30,11 @@ export default class ProjetoController {
 
         const {id} = req.params;
         try {
-
             const projeto: Array<projeto> = await db('projeto').select().where('id', id);
 
             return res.status(200).json(projeto);
         } catch(e) {
 
-            return res.status(500).json({err: e});
-        }
-    }
-
-    async getProposito(req: Request, res: Response){
-        const {id} = req.params;
-
-        try {
-            const proposito: Array<proposito> = await db.select(
-                ['proposito.id as id_proposito',
-                    'proposito.nome as nome_proposito',
-                    'proposito.descricao as descricao_proposito'
-                ]).table('proposito').where('id_projeto', id);
-            return res.status(200).json(proposito);
-        } catch(e: any) {
             return res.status(500).json({err: e});
         }
     }
@@ -79,6 +64,20 @@ export default class ProjetoController {
             const projeto: number = await db('projeto').delete().where('id', id);
             return res.status(200).json(projeto);
         } catch(e) {
+            return res.status(500).json({err: e});
+        }
+    }
+
+    async getProposito(req: Request, res: Response){
+        const {id} = req.params;
+
+        try {
+            const proposito: Array<proposito> = await db.select(
+                ['proposito.id as id_proposito',
+                    'proposito.nome as nome_proposito',
+                ]).table('proposito').where('id_projeto', id);
+            return res.status(200).json(proposito);
+        } catch(e: any) {
             return res.status(500).json({err: e});
         }
     }

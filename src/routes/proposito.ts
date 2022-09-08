@@ -5,6 +5,7 @@ const controller: PropositoController = new PropositoController();
 router
     .get('/', controller.read)
     .get('/:id', controller.readById)
+    .get('/:id/diretriz', controller.getDiretriz)
     .post('/', controller.create)
     .put('/:id', controller.update)
     .delete('/:id', controller.delete);

@@ -1,5 +1,6 @@
 import db from '../database/connection';
 import {Request, Response} from 'express';
+import { resultado } from './resultado';
 
 export interface indicador {
     nome: string,
@@ -66,6 +67,20 @@ export default class IndicadorController {
             const indicador: number = await db('indicador').delete().where('id', id);
             return res.status(200).json(indicador);
         } catch(e) {
+            return res.status(500).json({err: e});
+        }
+    }
+
+    async getResultado(req: Request, res: Response){
+        const {id} = req.params;
+
+        try {
+            const resultado: Array<resultado> = await db.select(
+                ['resultado.id as id_resultado',
+                    'resultado.nome as nome_resultado',
+                ]).table('resultado').where('id_indicador', id);
+            return res.status(200).json(resultado);
+        } catch(e: any) {
             return res.status(500).json({err: e});
         }
     }
