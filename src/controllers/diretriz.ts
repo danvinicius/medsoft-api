@@ -1,5 +1,6 @@
 import db from '../database/connection';
 import {Request, Response} from 'express';
+import { objetivo } from './objetivo';
 
 export interface diretriz {
     codigo: string,
@@ -11,7 +12,6 @@ export interface diretriz {
 export default class DiretrizController {
 
     async create(req: Request, res: Response) {
-
         const diretriz: diretriz = req.body;
         try {
             const diretrizCriada: number = await db('diretriz').insert(diretriz); 
@@ -66,6 +66,20 @@ export default class DiretrizController {
             const diretriz: number = await db('diretriz').delete().where('id', id);
             return res.status(200).json(diretriz);
         } catch(e) {
+            return res.status(500).json({err: e});
+        }
+    }
+
+    async getObjetivo(req: Request, res: Response){
+        const {id} = req.params;
+
+        try {
+            const objetivo: Array<objetivo> = await db.select(
+                ['objetivo.id as id_objetivo',
+                    'objetivo.nome as nome_objetivo',
+                ]).table('objetivo').where('id_diretriz', id);
+            return res.status(200).json(objetivo);
+        } catch(e: any) {
             return res.status(500).json({err: e});
         }
     }

@@ -1,5 +1,6 @@
 import db from '../database/connection';
 import {Request, Response} from 'express';
+import {diretriz} from './diretriz';
 
 export interface proposito {
     nome: string,
@@ -56,6 +57,21 @@ export default class PropositoController {
             const proposito: number = await db('proposito').delete().where('id', id);
             return res.status(200).json(proposito);
         } catch(e) {
+            return res.status(500).json({err: e});
+        }
+    }
+
+    async getDiretriz(req: Request, res: Response){
+        const {id} = req.params;
+
+        try {
+            const diretriz: Array<diretriz> = await db.select(
+                ['diretriz.id as id_diretriz',
+                    'diretriz.codigo as codigo_diretriz',
+                    'diretriz.nome as nome_diretriz',
+                ]).table('diretriz').where('id_proposito', id);
+            return res.status(200).json(diretriz);
+        } catch(e: any) {
             return res.status(500).json({err: e});
         }
     }
