@@ -8,7 +8,7 @@ dotenv_1.default.config();
 const express_1 = __importDefault(require("express"));
 const server_1 = __importDefault(require("./server"));
 const app = (0, express_1.default)();
-const PORT = 8081 || process.env.PORT;
+const PORT = process.env.PORT || 8081;
 const server = new server_1.default(PORT, app);
 //=-=-=-=-=-=-=-=-//
 server.config();
