@@ -11,7 +11,7 @@ export default class ProjetoController {
         const projeto: projeto = req.body;
 
         try {
-            const projetoCriado: number = await db('projeto').insert(projeto);
+            const projetoCriado: number = await db('Projeto').insert(projeto);
             return res.status(200).json(projetoCriado);
 
         } catch(e) {
@@ -19,7 +19,7 @@ export default class ProjetoController {
         }
     }
     async read(req: Request, res: Response) {
-        try {            const projetos: Array<projeto> = await db('projeto').select();
+        try {            const projetos: Array<projeto> = await db('Projeto').select();
             return res.status(200).json(projetos);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -30,7 +30,7 @@ export default class ProjetoController {
 
         const {id} = req.params;
         try {
-            const projeto: Array<projeto> = await db('projeto').select().where('id', id);
+            const projeto: Array<projeto> = await db('Projeto').select().where('id', id);
 
             return res.status(200).json(projeto);
         } catch(e) {
@@ -43,10 +43,10 @@ export default class ProjetoController {
         const {id} = req.params;
         const update: projeto = req.body;
         try {
-            const projetoExiste: Array<projeto> = await db('projeto').select().where('id', id);
+            const projetoExiste: Array<projeto> = await db('Projeto').select().where('id', id);
             if(projetoExiste){
 
-                const projetoAtualizado: number = await db('projeto').update(update).where('id', id);
+                const projetoAtualizado: number = await db('Projeto').update(update).where('id', id);
 
                 return res.status(200).json(projetoAtualizado);
             }
@@ -61,7 +61,7 @@ export default class ProjetoController {
     async delete(req: Request, res: Response) {
         const {id} = req.params;
         try {
-            const projeto: number = await db('projeto').delete().where('id', id);
+            const projeto: number = await db('Projeto').delete().where('id', id);
             return res.status(200).json(projeto);
         } catch(e) {
             return res.status(500).json({err: e});

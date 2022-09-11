@@ -14,7 +14,7 @@ export default class ObjetivoController {
 
         const objetivo: objetivo = req.body;
         try {
-            const objetivoCriada: number = await db('objetivo').insert(objetivo); 
+            const objetivoCriada: number = await db('Objetivo').insert(objetivo); 
             return res.status(200).json(objetivoCriada);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -24,7 +24,7 @@ export default class ObjetivoController {
     async read(req: Request, res: Response) {
 
         try {
-            const objetivo: Array<objetivo> = await db('objetivo').select();
+            const objetivo: Array<objetivo> = await db('Objetivo').select();
             return res.status(200).json(objetivo);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -35,7 +35,7 @@ export default class ObjetivoController {
 
         const {id} = req.params;
         try {
-            const objetivo: Array<objetivo> = await db('objetivo').select().where('id', id);
+            const objetivo: Array<objetivo> = await db('Objetivo').select().where('id', id);
             return res.status(200).json(objetivo);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -48,9 +48,9 @@ export default class ObjetivoController {
         const update: objetivo = req.body;
 
         try {
-            const objetivoExiste: Array<objetivo> = await db('objetivo').select().where('id', id);
+            const objetivoExiste: Array<objetivo> = await db('Objetivo').select().where('id', id);
             if(objetivoExiste){
-                const objetivoAtualizada: number = await db('objetivo').update(update).where('id', id);
+                const objetivoAtualizada: number = await db('Objetivo').update(update).where('id', id);
                 return res.status(200).json(objetivoAtualizada);
             }
             return res.status(404).json({err: 'objetivo não encontrado'});
@@ -63,7 +63,7 @@ export default class ObjetivoController {
 
         const {id} = req.params;
         try {
-            const objetivo: number = await db('objetivo').delete().where('id', id);
+            const objetivo: number = await db('Objetivo').delete().where('id', id);
             return res.status(200).json(objetivo);
         } catch(e) {
             return res.status(500).json({err: e});

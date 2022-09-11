@@ -12,7 +12,7 @@ export default class PropositoController {
     async create(req: Request, res: Response) {
         const proposito: proposito = req.body;
         try { 
-            const propositoCriado: number = await db('proposito').insert(proposito);
+            const propositoCriado: number = await db('Proposito').insert(proposito);
             return res.status(200).json(propositoCriado);
 
         } catch(e: any) {
@@ -21,7 +21,7 @@ export default class PropositoController {
     }
     async read(req: Request, res: Response) {
         try {
-            const proposito: Array<proposito> = await db('proposito').select();
+            const proposito: Array<proposito> = await db('Proposito').select();
             return res.status(200).json(proposito);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -30,7 +30,7 @@ export default class PropositoController {
     async readById(req: Request, res: Response) {
         const {id} = req.params;
         try {
-            const proposito: Array<proposito> = await db('proposito').select().where('id', id);
+            const proposito: Array<proposito> = await db('Proposito').select().where('id', id);
             return res.status(200).json(proposito);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -41,9 +41,9 @@ export default class PropositoController {
         const update: proposito = req.body;
 
         try {
-            const propositoExiste: Array<proposito> = await db('proposito').select().where('id', id);
+            const propositoExiste: Array<proposito> = await db('Proposito').select().where('id', id);
             if(propositoExiste){
-                const propositoAtualizado: number = await db('proposito').update(update).where('id', id);
+                const propositoAtualizado: number = await db('Proposito').update(update).where('id', id);
                 return res.status(200).json(propositoAtualizado);
             }
             return res.status(404).json({err: 'proposito não encontrado'});
@@ -54,7 +54,7 @@ export default class PropositoController {
     async delete(req: Request, res: Response) {
         const {id} = req.params;
         try {
-            const proposito: number = await db('proposito').delete().where('id', id);
+            const proposito: number = await db('Proposito').delete().where('id', id);
             return res.status(200).json(proposito);
         } catch(e) {
             return res.status(500).json({err: e});
