@@ -22,7 +22,7 @@ export default class IndicadorController {
     async create(req: Request, res: Response) {
         const indicador: indicador = req.body;
         try { 
-            const indicadorCriado: number = await db('indicador').insert(indicador);
+            const indicadorCriado: number = await db('Indicador').insert(indicador);
             return res.status(200).json(indicadorCriado);
 
         } catch(e: any) {
@@ -31,7 +31,7 @@ export default class IndicadorController {
     }
     async read(req: Request, res: Response) {
         try {
-            const indicador: Array<indicador> = await db('indicador').select();
+            const indicador: Array<indicador> = await db('Indicador').select();
             return res.status(200).json(indicador);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -40,7 +40,7 @@ export default class IndicadorController {
     async readById(req: Request, res: Response) {
         const {id} = req.params;
         try {
-            const indicador: Array<indicador> = await db('indicador').select().where('id', id);
+            const indicador: Array<indicador> = await db('Indicador').select().where('id', id);
             return res.status(200).json(indicador);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -51,9 +51,9 @@ export default class IndicadorController {
         const update: indicador = req.body;
 
         try {
-            const indicadorExiste: Array<indicador> = await db('indicador').select().where('id', id);
+            const indicadorExiste: Array<indicador> = await db('Indicador').select().where('id', id);
             if(indicadorExiste){
-                const indicadorAtualizado: number = await db('indicador').update(update).where('id', id);
+                const indicadorAtualizado: number = await db('Indicador').update(update).where('id', id);
                 return res.status(200).json(indicadorAtualizado);
             }
             return res.status(404).json({err: 'indicador não encontrado'});
@@ -64,7 +64,7 @@ export default class IndicadorController {
     async delete(req: Request, res: Response) {
         const {id} = req.params;
         try {
-            const indicador: number = await db('indicador').delete().where('id', id);
+            const indicador: number = await db('Indicador').delete().where('id', id);
             return res.status(200).json(indicador);
         } catch(e) {
             return res.status(500).json({err: e});

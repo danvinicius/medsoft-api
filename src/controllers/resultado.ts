@@ -12,7 +12,7 @@ export default class ResultadoController {
     async create(req: Request, res: Response) {
         const resultado: resultado = req.body;
         try { 
-            const resultadoCriado: number = await db('resultado').insert(resultado);
+            const resultadoCriado: number = await db('Resultado').insert(resultado);
             return res.status(200).json(resultadoCriado);
 
         } catch(e: any) {
@@ -21,7 +21,7 @@ export default class ResultadoController {
     }
     async read(req: Request, res: Response) {
         try {
-            const resultado: Array<resultado> = await db('resultado').select();
+            const resultado: Array<resultado> = await db('Resultado').select();
             return res.status(200).json(resultado);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -30,7 +30,7 @@ export default class ResultadoController {
     async readById(req: Request, res: Response) {
         const {id} = req.params;
         try {
-            const resultado: Array<resultado> = await db('resultado').select().where('id', id);
+            const resultado: Array<resultado> = await db('Resultado').select().where('id', id);
             return res.status(200).json(resultado);
         } catch(e) {
             return res.status(500).json({err: e});
@@ -41,9 +41,9 @@ export default class ResultadoController {
         const update: resultado = req.body;
 
         try {
-            const resultadoExiste: Array<resultado> = await db('resultado').select().where('id', id);
+            const resultadoExiste: Array<resultado> = await db('Resultado').select().where('id', id);
             if(resultadoExiste){
-                const resultadoAtualizado: number = await db('resultado').update(update).where('id', id);
+                const resultadoAtualizado: number = await db('Resultado').update(update).where('id', id);
                 return res.status(200).json(resultadoAtualizado);
             }
             return res.status(404).json({err: 'resultado não encontrado'});
@@ -54,7 +54,7 @@ export default class ResultadoController {
     async delete(req: Request, res: Response) {
         const {id} = req.params;
         try {
-            const resultado: number = await db('resultado').delete().where('id', id);
+            const resultado: number = await db('Resultado').delete().where('id', id);
             return res.status(200).json(resultado);
         } catch(e) {
             return res.status(500).json({err: e});
