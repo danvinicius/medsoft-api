@@ -8,10 +8,10 @@ import indicadorRouter from '../routes/indicador';
 import resultadoRouter from '../routes/resultado';
 
 export default class Server {
-    port: number;
+    port: string | number;
     app: Express;
 
-    constructor(port: number, app: Express) {
+    constructor(port: string | number, app: Express) {
         this.port = port;
         this.app = app;
     }
