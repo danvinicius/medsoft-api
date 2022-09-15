@@ -61,12 +61,12 @@ CREATE TABLE `Resultado` (
 	PRIMARY KEY (`id`)
 );
 
-ALTER TABLE `Proposito` ADD CONSTRAINT `Proposito_fk0` FOREIGN KEY (`id_projeto`) REFERENCES `Projeto`(`id`);
+ALTER TABLE `Proposito` ADD CONSTRAINT `Proposito_fk0` FOREIGN KEY (`id_projeto`) REFERENCES `Projeto`(`id`) ON DELETE CASCADE;
 
-ALTER TABLE `Diretriz` ADD CONSTRAINT `Diretriz_fk0` FOREIGN KEY (`id_proposito`) REFERENCES `Proposito`(`id`);
+ALTER TABLE `Diretriz` ADD CONSTRAINT `Diretriz_fk0` FOREIGN KEY (`id_proposito`) REFERENCES `Proposito`(`id`) ON DELETE CASCADE;
 
-ALTER TABLE `Objetivo` ADD CONSTRAINT `Objetivo_fk0` FOREIGN KEY (`id_diretriz`) REFERENCES `Diretriz`(`id`);
+ALTER TABLE `Objetivo` ADD CONSTRAINT `Objetivo_fk0` FOREIGN KEY (`id_diretriz`) REFERENCES `Diretriz`(`id`) ON DELETE CASCADE;
 
-ALTER TABLE `Indicador` ADD CONSTRAINT `Indicador_fk0` FOREIGN KEY (`id_objetivo`) REFERENCES `Objetivo`(`id`);
+ALTER TABLE `Indicador` ADD CONSTRAINT `Indicador_fk0` FOREIGN KEY (`id_objetivo`) REFERENCES `Objetivo`(`id`) ON DELETE CASCADE;
 
-ALTER TABLE `Resultado` ADD CONSTRAINT `Resultado_fk0` FOREIGN KEY (`id_indicador`) REFERENCES `Indicador`(`id`);
+ALTER TABLE `Resultado` ADD CONSTRAINT `Resultado_fk0` FOREIGN KEY (`id_indicador`) REFERENCES `Indicador`(`id`) ON DELETE CASCADE;
